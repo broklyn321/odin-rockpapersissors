@@ -1,30 +1,47 @@
+const playerText = document.querySelector("#playerText");
+const computerText = document.querySelector("#computerText");
+const resultText = document.querySelector("#resultText");
+const choiceBtns = document.querySelectorAll(".choiceBtn");
+let player;
+let computer;
+let result;
 
-let choicepc;
-let wr="pc wins by rock";
-let wp="pc wins by paper"
-let ws="pc wins by sissiors"
-let count=0;
-while(count<6)
-{
-let choiceme=prompt("enter choice");
-function winner(choiceme)
-{
-if(choiceme=="rock")
-{
- count=count+1;
- return wp
+choiceBtns.forEach(button => button.addEventListener("click", () => {
+
+    player = button.id;
+    computerTurn();
+    playerText.textContent = `Player: ${player}`;
+    computerText.textContent = `Computer: ${computer}`;
+    resultText.textContent = checkWinner();
+}));
+
+function computerTurn(){
+
+    const randNum = Math.floor(Math.random() * 3) + 1;
+
+    switch(randNum){
+      case 1:
+        computer = "ROCK";
+        break;
+      case 2:
+        computer = "PAPER";
+        break;
+      case 3:
+        computer = "SCISSORS";
+        break;
+    }
 }
- else if(choiceme=="paper")
- {
-  count=count+1;
-  return ws
- }
-  else if(choiceme=="sissors")
-  {
-   count=count+1;
-   return wr
-  }
+function checkWinner(){
+    if(player == computer){
+      return "Draw!";
+    }
+    else if(computer == "ROCK"){
+      return (player == "PAPER") ? "You Win!" : "You Lose!"
+    }
+    else if(computer == "PAPER"){
+      return (player == "SCISSORS") ? "You Win!" : "You Lose!"
+    }
+    else if(computer == "SCISSORS"){
+      return (player == "ROCK") ? "You Win!" : "You Lose!"
+    }
 }
-console.log(winner(choiceme))
-}
-console.log("score of winner",count)
